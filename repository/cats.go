@@ -13,13 +13,13 @@ func New() Repository {
 }
 
 var (
-	selectAllCatsQuery = "SELECT c.id, c.name FROM cats c;"
-	insertCatQuery = "INSERT INTO cats(name) VALUES($1) returning id;"
+	SelectAllCatsQuery = "SELECT c.id, c.name FROM cats c;"
+	InsertCatQuery = "INSERT INTO cats(name) VALUES($1) returning id;"
 )
 
 func (r *repository) FindAllCats(ctx context.Context, tx *sql.Tx) ([]*model.Cat, error) {
 	
-	rows, err := tx.QueryContext(ctx, selectAllCatsQuery)
+	rows, err := tx.QueryContext(ctx, SelectAllCatsQuery)
 	if err != nil {
 		return nil, err
 	}
@@ -41,7 +41,7 @@ func (r *repository) FindAllCats(ctx context.Context, tx *sql.Tx) ([]*model.Cat,
 func (r *repository) InsertCat(ctx context.Context, tx *sql.Tx, cat model.Cat) (int64, error) {
 	
 	var id int64
-	err := tx.QueryRowContext(ctx, insertCatQuery, cat.Name).Scan(&id)
+	err := tx.QueryRowContext(ctx, InsertCatQuery, cat.Name).Scan(&id)
 	if err != nil {
 		return 0, err
 	}
