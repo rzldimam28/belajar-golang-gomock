@@ -1,0 +1,11 @@
+### List Cats
+GET http://localhost:8899/cats
+Accept: application/json
+
+### Create Cat
+POST http://localhost:8899/cats
+Content-Type: application/json
+
+{
+  "name": "Anggora"
+}
